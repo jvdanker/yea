@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const AddMessage = (props) => {
-  let input
+  let input;
 
   return (
     <section id="new-message">
       <input
         onKeyPress={(e) => {
         if (e.key === 'Enter') {
-          props.dispatch(input.value, 'Me')
+          props.dispatch(input.value, 'Me');
           input.value = ''
         }
       }}
@@ -20,10 +20,10 @@ const AddMessage = (props) => {
       />
     </section>
   )
-}
+};
 
 AddMessage.propTypes = {
   dispatch: PropTypes.func.isRequired
-}
+};
 
-export default AddMessage
+export default AddMessage;

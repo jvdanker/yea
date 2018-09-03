@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Message from './Message'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Message from './Message';
 
 const MessagesList = ({ messages }) => (
   <section id="messages-list">
@@ -13,7 +13,7 @@ const MessagesList = ({ messages }) => (
     ))}
     </ul>
   </section>
-)
+);
 
 MessagesList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
@@ -21,6 +21,6 @@ MessagesList.propTypes = {
     message: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired
   }).isRequired).isRequired
-}
+};
 
-export default MessagesList
+export default MessagesList;

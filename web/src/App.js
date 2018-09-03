@@ -1,8 +1,8 @@
-import React from 'react'
-import './App.css'
-import { Sidebar } from './containers/Sidebar'
-import { MessagesList } from './containers/MessagesList'
-import { AddMessage } from './containers/AddMessage'
+import React from 'react';
+import './App.css';
+import { Sidebar } from './containers/Sidebar';
+import { MessagesList } from './containers/MessagesList';
+import { AddMessage } from './containers/AddMessage';
 
 const App = () => (
   <div id="container">
@@ -12,6 +12,6 @@ const App = () => (
       <AddMessage />
     </section>
   </div>
-)
+);
 
-export default App
+export default App;

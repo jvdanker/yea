@@ -39,11 +39,11 @@ export const startVotingSession = (session_id) => ({
     session_id: session_id
 });
 
-export const votingSessionStarted = (voting_session_id, votes_required, votes_casted) => ({
+export const votingSessionStarted = (session) => ({
     type: types.VOTING_SESSION_STARTED,
-    voting_session_id: voting_session_id,
-    votes_required: votes_required,
-    votes_casted: votes_casted
+    voting_session_id: session.voting_session_id,
+    votes_required: session.votes_required,
+    votes_casted: session.votes_casted
 });
 
 export const cancelVotingSession = (voting_session_id) => ({
@@ -66,4 +66,12 @@ export const castVote = (session_id, voting_session_id, vote) => ({
     session_id: session_id,
     voting_session_id: voting_session_id,
     vote: vote
+});
+
+export const voteAccepted = () => ({
+    type: types.VOTE_ACCEPTED
+});
+
+export const votingFinished = () => ({
+   type: types.VOTING_FINISHED
 });

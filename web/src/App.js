@@ -12,7 +12,7 @@ import './App.css';
 
 const mapStateToProps = state => ({
     username: state.user.username,
-    voting_session_id: state.voting.voting_session_id
+    voting_open: state.voting.voting_open
 });
 
 const AppContainer = (props) => (
@@ -28,7 +28,7 @@ const AppContainer = (props) => (
                     <MessagesList/>
                     <AddMessage/>
                     <Controls/>
-                    {props.voting_session_id.length !== 0 &&  <CastVotes/>}
+                    {props.voting_open && <CastVotes/>}
                 </section>
             </div>
         }

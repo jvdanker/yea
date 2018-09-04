@@ -4,7 +4,9 @@ import {
     messageReceived,
     populateUsersList,
     votingSessionStarted,
-    votingSessionCancelled
+    votingSessionCancelled,
+    voteAccepted,
+    votingFinished
 } from '../actions';
 
 const setupSocket = (dispatch) => {
@@ -23,10 +25,16 @@ const setupSocket = (dispatch) => {
         const data = JSON.parse(event.data);
         switch (data.type) {
             case types.VOTING_SESSION_STARTED:
-                dispatch(votingSessionStarted(data.voting_session_id));
+                dispatch(votingSessionStarted(data));
                 break;
             case types.VOTING_SESSION_CANCELLED:
                 dispatch(votingSessionCancelled(data.voting_session_id));
+                break;
+            case types.VOTE_ACCEPTED:
+                dispatch(voteAccepted());
+                break;
+            case types.VOTING_FINISHED:
+                dispatch(votingFinished());
                 break;
 
             case 'NEW_CONNECTION':

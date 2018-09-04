@@ -24,7 +24,7 @@ const voting = (state = defaultState, action) => {
             return Object.assign({}, state, defaultState);
         case types.VOTE_ACCEPTED:
             return Object.assign({}, state, { voting_open: false });
-        case types.VOTING_UPDATE:
+        case types.VOTING_UPDATE: {
             // return Object.assign({}, state, { voters: action.voters, voted: action.voted});
 
             var results = Object.assign({}, state, action);
@@ -33,6 +33,7 @@ const voting = (state = defaultState, action) => {
             });
 
             return Object.assign({}, state, { ...results });
+        }
 
         case types.VOTING_FINISHED:{
             var results = Object.assign({}, state, action);

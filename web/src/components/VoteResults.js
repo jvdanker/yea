@@ -8,7 +8,7 @@ const VoteResults = (props) => {
             <h1>Results</h1>
             <ul>
                 {props.voted.map(vote => (
-                    <span key={vote.id}>{vote.name} - {vote.voted}</span>
+                    <li key={vote.id}>{vote.name} - {vote.voted}</li>
                 ))}
             </ul>
         </div>

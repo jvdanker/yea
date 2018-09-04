@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "chance": "^1.0.16",
     "prop-types": "*",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

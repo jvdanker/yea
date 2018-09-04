@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import {Provider} from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import './index.css';
@@ -10,24 +10,27 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers';
 import handleNewMessage from './sagas';
 import setupSocket from './sockets';
-import username from './utils/name';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-  reducers,
-  applyMiddleware(sagaMiddleware)
+    reducers,
+    applyMiddleware(sagaMiddleware)
 );
 
-const socket = setupSocket(store.dispatch, username);
+const unsubscribe = store.subscribe(() =>
+    console.log('store:', store.getState())
+);
 
-sagaMiddleware.run(handleNewMessage, { socket, username });
+const socket = setupSocket(store.dispatch);
+
+sagaMiddleware.run(handleNewMessage, {socket});
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('root')
 );
 
 registerServiceWorker();

@@ -25,8 +25,6 @@ const voting = (state = defaultState, action) => {
         case types.VOTE_ACCEPTED:
             return Object.assign({}, state, { voting_open: false });
         case types.VOTING_UPDATE: {
-            // return Object.assign({}, state, { voters: action.voters, voted: action.voted});
-
             var results = Object.assign({}, state, action);
             results.voters.forEach(voter => {
                 voter.voted = results.voted.indexOf(voter.id) !== -1;

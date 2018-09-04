@@ -9,7 +9,7 @@ const user = (state = defaultState, action) => {
     console.log('reducer: user:', state, action);
 
     switch (action.type) {
-        case 'ID_RECEIVED':
+        case types.ID_RECEIVED:
             return Object.assign({}, state, { session_id: action.session_id });
         case types.JOIN_SESSION:
             return Object.assign({}, state, { username: action.name });

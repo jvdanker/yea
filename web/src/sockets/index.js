@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import {idReceived, messageReceived, populateUsersList} from '../actions';
+import {idReceived, messageReceived, populateUsersList, votingSessionStarted} from '../actions';
 
 const setupSocket = (dispatch) => {
     const socket = new WebSocket('ws://localhost:8989');
@@ -16,6 +16,9 @@ const setupSocket = (dispatch) => {
 
         const data = JSON.parse(event.data);
         switch (data.type) {
+            case types.VOTING_SESSION_STARTED:
+                dispatch(votingSessionStarted(data.voting_session_id));
+                break;
             case 'NEW_CONNECTION':
                 dispatch(idReceived(data.session_id));
                 break;

@@ -32,6 +32,15 @@ wss.on('connection', (ws) => {
         console.log(message);
 
         switch (data.type) {
+            case 'START_VOTING_SESSION': {
+                const message = {
+                    type: 'VOTING_SESSION_STARTED',
+                    voting_session_id: wss.getUniqueID()
+                };
+                broadcast(message);
+
+                break;
+            }
             case 'JOIN_SESSION': {
                 index = users.findIndex(item => item.session_id === data.session_id);
 
@@ -71,7 +80,8 @@ wss.on('connection', (ws) => {
                     type: 'USERS_LIST',
                     users
                 }, ws);
-                break
+
+                break;
             }
             case 'ADD_MESSAGE':
                 broadcast({
@@ -81,7 +91,7 @@ wss.on('connection', (ws) => {
                 }, ws);
                 break;
             default:
-                break
+                break;
         }
     });
 

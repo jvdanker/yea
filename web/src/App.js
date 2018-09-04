@@ -3,6 +3,7 @@ import './App.css';
 import {Sidebar} from './containers/Sidebar';
 import {MessagesList} from './containers/MessagesList';
 import {AddMessage} from './containers/AddMessage';
+import {Controls} from './containers/Controls';
 import {Username} from './containers/Username';
 import connect from "react-redux/es/connect/connect";
 
@@ -22,6 +23,7 @@ const AppContainer = (props) => (
                 <section id="main">
                     <MessagesList/>
                     <AddMessage/>
+                    <Controls/>
                 </section>
             </div>
         }

@@ -2,6 +2,11 @@ import * as types from '../constants/ActionTypes'
 
 let nextMessageId = 0;
 
+export const votingSessionStarted = (voting_session_id) => ({
+    type: types.VOTING_SESSION_STARTED,
+    voting_session_id: voting_session_id
+});
+
 export const idReceived = (session_id) => ({
     type: 'ID_RECEIVED',
     session_id: session_id
@@ -33,3 +38,9 @@ export const populateUsersList = users => ({
     type: types.USERS_LIST,
     users
 });
+
+export const startVotingSession = (session_id) => ({
+    type: types.START_VOTING_SESSION,
+    session_id: session_id
+});
+

@@ -1,12 +1,13 @@
 import {connect} from 'react-redux';
 import ControlsComponent from '../components/Controls';
-import {startVotingSession,cancelVotingSession,showResultsVotingSession} from '../actions';
+import {startVotingSession,cancelVotingSession} from '../actions';
 
 const mapStateToProps = state => ({
     session_id: state.user.session_id,
     voting_session_id: state.voting.voting_session_id,
-    votes_required: state.voting.votes_required,
-    votes_casted: state.voting.votes_casted
+    voters: state.voting.voters,
+    voted: state.voting.voted,
+    voting_finished: state.voting.voting_finished
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -15,9 +16,6 @@ const mapDispatchToProps = dispatch => ({
     },
     dispatchCancelVotingSession: (session_id) => {
         dispatch(cancelVotingSession(session_id))
-    },
-    dispatchShowResultsVotingSession: (session_id) => {
-        dispatch(showResultsVotingSession(session_id))
     }
 });
 

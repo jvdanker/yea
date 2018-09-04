@@ -5,8 +5,8 @@ import {castVote} from '../actions';
 const mapStateToProps = state => ({
     session_id: state.user.session_id,
     voting_session_id: state.voting.voting_session_id,
-    votes_required: state.voting.votes_required,
-    votes_casted: state.voting.votes_casted
+    voters: state.voting.voters,
+    voted: state.voting.voted
 });
 
 const mapDispatchToProps = dispatch => ({

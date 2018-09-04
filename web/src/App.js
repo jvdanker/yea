@@ -7,12 +7,16 @@ import {AddMessage} from './containers/AddMessage';
 import {Username} from './containers/Username';
 import {Controls} from './containers/Controls';
 import {CastVotes} from './containers/CastVotes';
+import {VoteResults} from './containers/VoteResults';
+import {WaitingForVotes} from './containers/WaitingForVotes';
 
 import './App.css';
 
 const mapStateToProps = state => ({
     username: state.user.username,
-    voting_open: state.voting.voting_open
+    voting_open: state.voting.voting_open,
+    voting_finished: state.voting.voting_finished,
+    voting_session_id: state.voting.voting_session_id
 });
 
 const AppContainer = (props) => (
@@ -29,6 +33,8 @@ const AppContainer = (props) => (
                     <AddMessage/>
                     <Controls/>
                     {props.voting_open && <CastVotes/>}
+                    {props.voting_finished && <VoteResults/>}
+                    {(props.voting_session_id.length > 0 && !props.voting_finished) && <WaitingForVotes/>}
                 </section>
             </div>
         }

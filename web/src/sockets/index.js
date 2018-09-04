@@ -6,6 +6,7 @@ import {
     votingSessionStarted,
     votingSessionCancelled,
     voteAccepted,
+    votingUpdate,
     votingFinished
 } from '../actions';
 
@@ -33,8 +34,11 @@ const setupSocket = (dispatch) => {
             case types.VOTE_ACCEPTED:
                 dispatch(voteAccepted());
                 break;
+            case types.VOTING_UPDATE:
+                dispatch(votingUpdate(data));
+                break;
             case types.VOTING_FINISHED:
-                dispatch(votingFinished());
+                dispatch(votingFinished(data));
                 break;
 
             case 'NEW_CONNECTION':

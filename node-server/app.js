@@ -15,7 +15,25 @@ const broadcast = (data, ws) => {
     })
 };
 
+const interval = setInterval(function ping() {
+    wss.clients.forEach(function each(ws) {
+        if (ws.isAlive === false) return ws.terminate();
+
+        ws.isAlive = false;
+        ws.ping(noop);
+    });
+}, 30000);
+
+function noop() {}
+
+function heartbeat() {
+    this.isAlive = true;
+}
+
 wss.on('connection', (ws) => {
+    ws.isAlive = true;
+    ws.on('pong', heartbeat);
+
     ws.send(JSON.stringify({
         type: 'NEW_CONNECTION',
         session_id: getUniqueID()
@@ -31,10 +49,17 @@ wss.on('connection', (ws) => {
             case 'START_VOTING_SESSION': {
                 const voting_session_id = getUniqueID();
 
+                var voters = Array.from(users, user => {
+                    return {
+                        id: user.id,
+                        name: user.name
+                    }
+                });
+
                 votingSession = {
                     voting_session_id: voting_session_id,
-                    votes_required: users.length,
-                    votes_casted: 0
+                    voters,
+                    voted: []
                 };
 
                 const message = {
@@ -55,7 +80,12 @@ wss.on('connection', (ws) => {
                 break;
             }
             case 'CAST_VOTE': {
-                votingSession.votes_casted += 1;
+                var index = users.findIndex(item => item.session_id === data.session_id);
+                console.log(votingSession);
+                votingSession.voted.push({
+                    id: users[index].id,
+                    voted: data.vote
+                });
 
                 const message1 = JSON.stringify({
                     type: 'VOTE_ACCEPTED'
@@ -63,18 +93,23 @@ wss.on('connection', (ws) => {
                 console.log('OUT:', message1);
                 ws.send(message1);
 
+                var votingUpdate = Array.from(votingSession.voted, vote => vote.id);
                 const message = {
                     type: 'VOTING_UPDATE',
-                    ...votingSession
+                    voters: votingSession.voters,
+                    voted: votingUpdate
                 };
                 broadcast(message);
 
-                if (votingSession.votes_casted === votingSession.votes_required) {
+                if (votingSession.voted.length === votingSession.voters.length) {
+
                     const message = {
                         type: 'VOTING_FINISHED',
                         ...votingSession
                     };
                     broadcast(message);
+
+                    votingSession = {};
                 }
 
                 break;
@@ -83,6 +118,7 @@ wss.on('connection', (ws) => {
 
             case 'JOIN_SESSION': {
                 index = users.findIndex(item => item.session_id === data.session_id);
+                console.log(users, index);
 
                 if (index !== -1) {
                     users[index].name = data.name;
@@ -93,6 +129,7 @@ wss.on('connection', (ws) => {
                         id: index+1,
                         name: data.name,
                     });
+                    ws.index = index;
                 }
 
                 const message = JSON.stringify({
@@ -137,8 +174,9 @@ wss.on('connection', (ws) => {
         }
     });
 
-    ws.on('close', () => {
-        users.splice(index, 1);
+    ws.on('close', (code, reason) => {
+        console.log('close', code, reason, ws.index);
+        users.splice(ws.index, 1);
 
         broadcast({
             type: 'USERS_LIST',

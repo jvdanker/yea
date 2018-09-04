@@ -14,8 +14,9 @@ export const joinSession = (session_id, author) => ({
     name: author
 });
 
-export const addMessage = (message, author) => ({
+export const addMessage = (session_id, message, author) => ({
     type: types.ADD_MESSAGE,
+    session_id: session_id,
     id: nextMessageId++,
     message,
     author

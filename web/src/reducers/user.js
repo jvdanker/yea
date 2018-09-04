@@ -1,6 +1,11 @@
 import * as types from '../constants/ActionTypes';
 
-const user = (state = {}, action) => {
+const defaultState = {
+    session_id: "",
+    username: ""
+};
+
+const user = (state = defaultState, action) => {
     console.log('reducer: user:', state, action);
 
     switch (action.type) {

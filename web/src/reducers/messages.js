@@ -6,6 +6,7 @@ const messages = (state = [], action) => {
         case 'MESSAGE_RECEIVED':
             return state.concat([
                 {
+                    session_id: action.session_id,
                     message: action.message,
                     author: action.author,
                     id: action.id

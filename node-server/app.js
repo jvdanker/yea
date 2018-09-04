@@ -56,8 +56,6 @@ wss.on('connection', (ws) => {
                     users
                 }, ws);
 
-                console.log(users);
-
                 break;
             }
             case 'ADD_USER': {

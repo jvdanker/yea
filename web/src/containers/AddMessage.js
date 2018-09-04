@@ -2,10 +2,16 @@ import {connect} from 'react-redux';
 import AddMessageComponent from '../components/AddMessage';
 import {addMessage} from '../actions';
 
+const mapStateToProps = state => ({
+    session_id: state.user.session_id,
+    username: state.user.username
+});
+
 const mapDispatchToProps = dispatch => ({
-    dispatch: (message, author) => {
-        dispatch(addMessage(message, author))
+    dispatch: (session_id, message, author) => {
+        console.log(message, author);
+        dispatch(addMessage(session_id, message, author));
     }
 });
 
-export const AddMessage = connect(() => ({}), mapDispatchToProps)(AddMessageComponent);
+export const AddMessage = connect(mapStateToProps, mapDispatchToProps)(AddMessageComponent);

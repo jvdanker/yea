@@ -11,16 +11,20 @@ const mapStateToProps = state => ({
 });
 
 const AppContainer = (props) => (
-    <div id="container">
+    <div>
         <div>
-            {props.username}
+            Your name: "{props.username}"
+            { props.username === "" && <Username/> }
         </div>
-        <Sidebar/>
-        <section id="main">
-            <Username/>
-            <MessagesList/>
-            <AddMessage/>
-        </section>
+        { props.username !== "" &&
+            <div>
+                <Sidebar/>
+                <section id="main">
+                    <MessagesList/>
+                    <AddMessage/>
+                </section>
+            </div>
+        }
     </div>
 );
 

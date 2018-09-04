@@ -41,6 +41,14 @@ wss.on('connection', (ws) => {
 
                 break;
             }
+            case 'CANCEL_VOTING_SESSION':
+                const message = {
+                    type: 'VOTING_SESSION_CANCELLED',
+                    voting_session_id: data.voting_session_id
+                };
+                broadcast(message);
+
+                break;
             case 'JOIN_SESSION': {
                 index = users.findIndex(item => item.session_id === data.session_id);
 

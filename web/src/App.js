@@ -1,14 +1,18 @@
 import React from 'react';
-import './App.css';
+import connect from "react-redux/es/connect/connect";
+
 import {Sidebar} from './containers/Sidebar';
 import {MessagesList} from './containers/MessagesList';
 import {AddMessage} from './containers/AddMessage';
-import {Controls} from './containers/Controls';
 import {Username} from './containers/Username';
-import connect from "react-redux/es/connect/connect";
+import {Controls} from './containers/Controls';
+import {CastVotes} from './containers/CastVotes';
+
+import './App.css';
 
 const mapStateToProps = state => ({
-    username: state.user.username
+    username: state.user.username,
+    voting_session_id: state.voting.voting_session_id
 });
 
 const AppContainer = (props) => (
@@ -24,6 +28,7 @@ const AppContainer = (props) => (
                     <MessagesList/>
                     <AddMessage/>
                     <Controls/>
+                    {props.voting_session_id.length !== 0 &&  <CastVotes/>}
                 </section>
             </div>
         }

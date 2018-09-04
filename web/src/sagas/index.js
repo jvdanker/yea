@@ -18,6 +18,21 @@ const handleNewMessage = function* handleNewMessage(params) {
         params.socket.send(JSON.stringify(action));
     });
 
+    yield takeEvery(types.CANCEL_VOTING_SESSION, (action) => {
+        console.log('handleNewMessage: CANCEL_VOTING_SESSION', action, params);
+        params.socket.send(JSON.stringify(action));
+    });
+
+    yield takeEvery(types.FINISH_VOTING_SESSION, (action) => {
+        console.log('handleNewMessage: FINISH_VOTING_SESSION', action, params);
+        params.socket.send(JSON.stringify(action));
+    });
+
+    yield takeEvery(types.CAST_VOTE, (action) => {
+        console.log('handleNewMessage: CAST_VOTE', action, params);
+        params.socket.send(JSON.stringify(action));
+    });
+
 };
 
 export default handleNewMessage;

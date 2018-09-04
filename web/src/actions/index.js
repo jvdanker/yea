@@ -2,11 +2,6 @@ import * as types from '../constants/ActionTypes'
 
 let nextMessageId = 0;
 
-export const votingSessionStarted = (voting_session_id) => ({
-    type: types.VOTING_SESSION_STARTED,
-    voting_session_id: voting_session_id
-});
-
 export const idReceived = (session_id) => ({
     type: 'ID_RECEIVED',
     session_id: session_id
@@ -44,3 +39,31 @@ export const startVotingSession = (session_id) => ({
     session_id: session_id
 });
 
+export const votingSessionStarted = (voting_session_id, votes_required, votes_casted) => ({
+    type: types.VOTING_SESSION_STARTED,
+    voting_session_id: voting_session_id,
+    votes_required: votes_required,
+    votes_casted: votes_casted
+});
+
+export const cancelVotingSession = (voting_session_id) => ({
+    type: types.CANCEL_VOTING_SESSION,
+    voting_session_id: voting_session_id
+});
+
+export const votingSessionCancelled = (voting_session_id) => ({
+    type: types.VOTING_SESSION_CANCELLED,
+    voting_session_id: voting_session_id
+});
+
+export const showResultsVotingSession = (voting_session_id) => ({
+    type: types.FINISH_VOTING_SESSION,
+    voting_session_id: voting_session_id
+});
+
+export const castVote = (session_id, voting_session_id, vote) => ({
+    type: types.CAST_VOTE,
+    session_id: session_id,
+    voting_session_id: voting_session_id,
+    vote: vote
+});

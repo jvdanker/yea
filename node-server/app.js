@@ -22,7 +22,7 @@ wss.getUniqueID = function () {
 wss.on('connection', (ws) => {
     ws.send(JSON.stringify({
         type: 'NEW_CONNECTION',
-        userid: wss.getUniqueID()
+        session_id: wss.getUniqueID()
     }));
 
     let index;
@@ -32,15 +32,15 @@ wss.on('connection', (ws) => {
         console.log(message);
 
         switch (data.type) {
-            case 'SET_USERNAME': {
-                index = users.findIndex(item => item.userid === data.userid);
+            case 'JOIN_SESSION': {
+                index = users.findIndex(item => item.session_id === data.session_id);
 
                 if (index !== -1) {
                     users[index].name = data.name;
                 } else {
                     index = users.length;
                     users.push({
-                        userid: data.userid,
+                        session_id: data.session_id,
                         id: index+1,
                         name: data.name,
                     });

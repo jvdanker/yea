@@ -17,7 +17,7 @@ const setupSocket = (dispatch) => {
         const data = JSON.parse(event.data);
         switch (data.type) {
             case 'NEW_CONNECTION':
-                dispatch(idReceived(data.userid));
+                dispatch(idReceived(data.session_id));
                 break;
             case types.ADD_MESSAGE:
                 dispatch(messageReceived(data.message, data.author));

@@ -5,8 +5,8 @@ const user = (state = {}, action) => {
 
     switch (action.type) {
         case 'ID_RECEIVED':
-            return Object.assign({}, state, { userid: action.userid });
-        case types.SET_USERNAME:
+            return Object.assign({}, state, { session_id: action.session_id });
+        case types.JOIN_SESSION:
             return Object.assign({}, state, { username: action.name });
         default:
             return state

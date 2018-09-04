@@ -2,14 +2,14 @@ import * as types from '../constants/ActionTypes'
 
 let nextMessageId = 0;
 
-export const idReceived = (userid) => ({
+export const idReceived = (session_id) => ({
     type: 'ID_RECEIVED',
-    userid: userid
+    session_id: session_id
 });
 
-export const setUsername = (userid, author) => ({
-    type: types.SET_USERNAME,
-    userid: userid,
+export const joinSession = (session_id, author) => ({
+    type: types.JOIN_SESSION,
+    session_id: session_id,
     id: nextMessageId++,
     name: author
 });

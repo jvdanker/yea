@@ -10,8 +10,8 @@ const handleNewMessage = function* handleNewMessage(params) {
         params.socket.send(JSON.stringify(action));
     });
 
-    yield takeEvery(types.SET_USERNAME, (action) => {
-        console.log('handleNewMessage: set username', action, params);
+    yield takeEvery(types.JOIN_SESSION, (action) => {
+        console.log('handleNewMessage: JOIN_SESSION', action, params);
         params.socket.send(JSON.stringify(action));
     });
 };

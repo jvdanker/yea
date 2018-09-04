@@ -1,4 +1,4 @@
-export const SET_USERNAME = 'SET_USERNAME';
+export const JOIN_SESSION = 'JOIN_SESSION';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const MESSAGE_RECEIVED = 'MESSAGE_RECEIVED';
 export const ADD_USER = 'ADD_USER';

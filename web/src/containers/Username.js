@@ -1,16 +1,16 @@
 import {connect} from 'react-redux';
 import SetUsernameComponent from '../components/SetUsername';
-import {setUsername} from '../actions';
+import {joinSession} from '../actions';
 
 const mapStateToProps = state => ({
-    userid: state.user.userid,
+    session_id: state.user.session_id,
     username: state.user.username
 });
 
 const mapDispatchToProps = dispatch => ({
-    dispatch: (userid, author) => {
+    dispatch: (session_id, author) => {
         console.log("dispatch setUsername", author);
-        dispatch(setUsername(userid, author));
+        dispatch(joinSession(session_id, author));
     }
 });
 

@@ -11,7 +11,7 @@ const SetUsername = (props) => {
             <input
                 onKeyPress={(e) => {
                     if (e.key === 'Enter') {
-                        props.dispatch(props.userid, input.value);
+                        props.dispatch(props.session_id, input.value);
                         // input.value = '';
                     }
                 }}

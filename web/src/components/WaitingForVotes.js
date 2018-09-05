@@ -1,18 +1,28 @@
 import React from 'react'
+import User from "./User";
+import {withStyles} from "@material-ui/core";
+
+const styles = {
+    row: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+};
 
 const WaitingForVotes = (props) => {
     console.log('WaitingForVotes', props);
+    const { voters, classes } = props;
 
     return (
         <div>
             <h1>Waiting for votes</h1>
-            <ul>
-                {props.voters.map(voter => (
-                    <li key={voter.id}>{voter.name} - {voter.voted && <span>Yes</span>}</li>
+            <div className={classes.row}>
+                {voters.map(voter => (
+                    <User key={voter.id} name={voter.name} active={voter.voted}/>
                 ))}
-            </ul>
+            </div>
         </div>
     )
 };
 
-export default WaitingForVotes;
+export default withStyles(styles)(WaitingForVotes);

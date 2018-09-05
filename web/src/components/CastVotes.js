@@ -1,25 +1,133 @@
-import React from 'react'
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Typography from '@material-ui/core/Typography';
 
-const CastVotes = (props) => {
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        minWidth: 300,
+        width: '100%',
+    },
+    image: {
+        position: 'relative',
+        height: 200,
+        [theme.breakpoints.down('xs')]: {
+            width: '100% !important', // Overrides inline-style
+            height: 100,
+        },
+        '&:hover, &$focusVisible': {
+            zIndex: 1,
+            '& $imageBackdrop': {
+                opacity: 0.15,
+            },
+            '& $imageMarked': {
+                opacity: 0,
+            },
+            '& $imageTitle': {
+                border: '4px solid currentColor',
+            },
+        },
+    },
+    focusVisible: {},
+    imageButton: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: theme.palette.common.white,
+    },
+    imageSrc: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 40%',
+    },
+    imageBackdrop: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: theme.palette.common.black,
+        opacity: 0.4,
+        transition: theme.transitions.create('opacity'),
+    },
+    imageTitle: {
+        position: 'relative',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme.spacing.unit + 6}px`,
+    },
+    imageMarked: {
+        height: 3,
+        width: 18,
+        backgroundColor: theme.palette.common.white,
+        position: 'absolute',
+        bottom: -2,
+        left: 'calc(50% - 9px)',
+        transition: theme.transitions.create('opacity'),
+    },
+});
+
+const cards = [
+    { value: 1, url: '/static/images/grid-list/i1.png' },
+    { value: 2, url: '/static/images/grid-list/i1.png' },
+    { value: 3, url: '/static/images/grid-list/i1.png' },
+    { value: 5, url: '/static/images/grid-list/i1.png' },
+    { value: 8, url: '/static/images/grid-list/i1.png' },
+    { value: 13, url: '/static/images/grid-list/i1.png' }
+];
+
+function castVote(props, card) {
+    console.log('castVote', props, card);
+    props.castVote(props.session_id, props.voting_session_id, card.value);
+}
+
+function CastVotes(props) {
     console.log('CastVotes', props);
+    const { classes } = props;
 
     return (
-        <div>
-            <h1>Cast your vote</h1>
-            <div><a href="" onClick={(e) => { e.preventDefault(); props.castVote(props.session_id, props.voting_session_id, 0);}}>?</a></div>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>5</div>
-            <div>8</div>
-            <div>13</div>
+        <div className={classes.root}>
+            {cards.map(card => (
+                <ButtonBase
+                    focusRipple
+                    key={card.value}
+                    className={classes.image}
+                    focusVisibleClassName={classes.focusVisible}
+                    style={{ width: '10%' }}
+                    onClick={castVote.bind(this, props, card)}
+                >
+                    <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
+                    <span className={classes.imageBackdrop} />
+                    <span className={classes.imageButton}>
+                        <Typography
+                            component="span"
+                            variant="subheading"
+                            color="inherit"
+                            className={classes.imageTitle}
+                        >
+                            {card.value}
+                            <span className={classes.imageMarked} />
+                        </Typography>
+                    </span>
+                </ButtonBase>
+            ))}
         </div>
-    )
-};
+    );
+}
 
 CastVotes.propTypes = {
-    castVote: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
+    castVote: PropTypes.func.isRequired
 };
 
-export default CastVotes;
+export default withStyles(styles)(CastVotes);

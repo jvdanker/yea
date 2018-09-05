@@ -15,7 +15,9 @@ const styles = theme => ({
     empty: {
         height: 200,
         width: 150,
-        backgroundColor: 'black'
+        backgroundImage: 'url(/peekredback.jpg)',
+        backgroundSize: 'cover',
+        backgroundPositionX: 'center'
     },
     image: {
         position: 'relative',
@@ -103,28 +105,27 @@ const Card = (props) => {
     const {card, classes} = props;
 
     return (
-        <Grid item key={card.value}>
-            <ButtonBase
-                focusRipple
-                className={classes.image}
-                focusVisibleClassName={classes.focusVisible}
-                onClick={castVote.bind(this, props, card)}
-            >
-                <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
-                <span className={classes.imageBackdrop} />
-                <span className={classes.imageButton}>
-                    <Typography
-                        component="span"
-                        variant="subheading"
-                        color="inherit"
-                        className={classes.imageTitle}
-                    >
-                        {card.value}
-                        <span className={classes.imageMarked} />
-                    </Typography>
-                </span>
-            </ButtonBase>
-        </Grid>
+        <ButtonBase
+            key={card.value}
+            focusRipple
+            className={classes.image}
+            focusVisibleClassName={classes.focusVisible}
+            onClick={castVote.bind(this, props, card)}
+        >
+            <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
+            <span className={classes.imageBackdrop} />
+            <span className={classes.imageButton}>
+                <Typography
+                    component="span"
+                    variant="subheading"
+                    color="inherit"
+                    className={classes.imageTitle}
+                >
+                    {card.value}
+                    <span className={classes.imageMarked} />
+                </Typography>
+            </span>
+        </ButtonBase>
     );
 };
 
@@ -133,9 +134,7 @@ const ReadonlyCard = (props) => {
     const {card, classes} = props;
 
     return (
-        <Grid item key={card.value}>
-            <div className={classes.empty}></div>
-        </Grid>
+        <div key={card.value} className={classes.empty}></div>
     );
 };
 
@@ -151,7 +150,7 @@ function CastVotes(props) {
             <Grid item xs={12}>
                 <Grid container justify="center" spacing={24}>
                     {cards.map(card => (
-                        <div key={card.value}>
+                        <Grid item key={card.value}>
                             {(props.voted_for === "" || card.value === props.voted_for) &&
                                 <Card
                                     session_id={props.session_id}
@@ -161,9 +160,9 @@ function CastVotes(props) {
                                     castVote={props.castVote}/>
                             }
                             {(props.voted_for !== "" && card.value !== props.voted_for) &&
-                                <ReadonlyCard classes={classes}/>
+                                <ReadonlyCard card={card} classes={classes}/>
                             }
-                        </div>
+                        </Grid>
                     ))}
                 </Grid>
             </Grid>

@@ -15,7 +15,6 @@ const WaitingForVotes = (props) => {
 
     return (
         <div>
-            <h1>Waiting for votes</h1>
             <div className={classes.row}>
                 {voters.map(voter => (
                     <User key={voter.id} name={voter.name} active={voter.voted}/>

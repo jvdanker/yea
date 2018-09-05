@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import Grid from "@material-ui/core/Grid/Grid";
+import Chip from "@material-ui/core/Chip/Chip";
+import AccountCircle from "@material-ui/core/SvgIcon/SvgIcon";
 
 const styles = theme => ({
     root: {
@@ -14,6 +17,7 @@ const styles = theme => ({
     image: {
         position: 'relative',
         height: 200,
+        width: 150,
         [theme.breakpoints.down('xs')]: {
             width: '100% !important', // Overrides inline-style
             height: 100,
@@ -96,32 +100,40 @@ function CastVotes(props) {
     const { classes } = props;
 
     return (
-        <div className={classes.root}>
-            {cards.map(card => (
-                <ButtonBase
-                    focusRipple
-                    key={card.value}
-                    className={classes.image}
-                    focusVisibleClassName={classes.focusVisible}
-                    style={{ width: '10%' }}
-                    onClick={castVote.bind(this, props, card)}
-                >
-                    <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
-                    <span className={classes.imageBackdrop} />
-                    <span className={classes.imageButton}>
-                        <Typography
-                            component="span"
-                            variant="subheading"
-                            color="inherit"
-                            className={classes.imageTitle}
-                        >
-                            {card.value}
-                            <span className={classes.imageMarked} />
-                        </Typography>
-                    </span>
-                </ButtonBase>
-            ))}
-        </div>
+        <Grid
+            container
+            direction="row"
+        >
+            <Grid item xs={12}>
+                <Grid container justify="center" spacing={24}>
+                    {cards.map(card => (
+                        <Grid item key={card.value}>
+                            <ButtonBase
+                                focusRipple
+                                key={card.value}
+                                className={classes.image}
+                                focusVisibleClassName={classes.focusVisible}
+                                onClick={castVote.bind(this, props, card)}
+                            >
+                                <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
+                                <span className={classes.imageBackdrop} />
+                                <span className={classes.imageButton}>
+                                    <Typography
+                                        component="span"
+                                        variant="subheading"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                    >
+                                        {card.value}
+                                        <span className={classes.imageMarked} />
+                                    </Typography>
+                                </span>
+                            </ButtonBase>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Grid>
+        </Grid>
     );
 }
 

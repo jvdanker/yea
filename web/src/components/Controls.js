@@ -6,7 +6,6 @@ const Controls = (props) => {
 
     return (
         <div>
-            <h1>Controls</h1>
             {(props.voting_session_id.length === 0 || props.voting_finished) &&
             <button onClick={() => props.dispatchStartVotingSession(props.session_id)}>Start new vote</button>}
 

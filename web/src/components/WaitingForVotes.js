@@ -60,7 +60,7 @@ function MediaCard(props) {
                         Voting has started!
                     </Typography>
                     <Typography component="p">
-                        Below are presented all currently attending users for who we are waiting for to cast their vote...
+                        Below are presented all currently attending users of who we are waiting for to cast their vote...
                     </Typography>
                     <Typography>
                         {voters.map(voter => (

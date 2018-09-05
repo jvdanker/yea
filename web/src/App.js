@@ -11,6 +11,7 @@ import ButtonAppBar from "./containers/ButtonAppBar";
 import * as types from './constants/ActionTypes';
 
 import './App.css';
+import Grid from "@material-ui/core/Grid/Grid";
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -25,8 +26,20 @@ const buttonStyles = {};
 const AppContainer = (props) => (
     <div>
         <ButtonAppBar classes={buttonStyles} />
-        <Sidebar/>
-        Voting status: {props.voting_status}
+        <Grid
+            container
+            direction="row"
+        >
+            <Grid item style={{flex: 1}}>
+                {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
+                  <WaitingForVotes/>
+                }
+            </Grid>
+            <Grid item style={{flex: 1}}>
+                <Sidebar/>
+            </Grid>
+        </Grid>
+
         { props.username === "" && <Username/> }
         { props.username !== "" &&
             <div>
@@ -35,9 +48,6 @@ const AppContainer = (props) => (
                     <CastVotes/>
                 }
                 {props.voting_status === types.VOTING_FINISHED && <VoteResults/>}
-                {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
-                    <WaitingForVotes/>
-                }
             </div>
         }
     </div>

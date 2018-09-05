@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar/Avatar";
 import deepOrange from "@material-ui/core/colors/deepOrange";
 import deepPurple from "@material-ui/core/colors/deepPurple";
 import Chip from '@material-ui/core/Chip';

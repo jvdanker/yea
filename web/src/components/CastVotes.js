@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid/Grid";
-import Chip from "@material-ui/core/Chip/Chip";
-import AccountCircle from "@material-ui/core/SvgIcon/SvgIcon";
 
 const styles = theme => ({
     root: {
@@ -13,6 +11,11 @@ const styles = theme => ({
         flexWrap: 'wrap',
         minWidth: 300,
         width: '100%',
+    },
+    empty: {
+        height: 200,
+        width: 150,
+        backgroundColor: 'black'
     },
     image: {
         position: 'relative',
@@ -95,6 +98,47 @@ function castVote(props, card) {
     props.castVote(props.session_id, props.voting_session_id, card.value);
 }
 
+const Card = (props) => {
+    console.log('Card', props);
+    const {card, classes} = props;
+
+    return (
+        <Grid item key={card.value}>
+            <ButtonBase
+                focusRipple
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                onClick={castVote.bind(this, props, card)}
+            >
+                <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
+                <span className={classes.imageBackdrop} />
+                <span className={classes.imageButton}>
+                    <Typography
+                        component="span"
+                        variant="subheading"
+                        color="inherit"
+                        className={classes.imageTitle}
+                    >
+                        {card.value}
+                        <span className={classes.imageMarked} />
+                    </Typography>
+                </span>
+            </ButtonBase>
+        </Grid>
+    );
+};
+
+const ReadonlyCard = (props) => {
+    console.log('ReadonlyCard', props);
+    const {card, classes} = props;
+
+    return (
+        <Grid item key={card.value}>
+            <div className={classes.empty}></div>
+        </Grid>
+    );
+};
+
 function CastVotes(props) {
     console.log('CastVotes', props);
     const { classes } = props;
@@ -107,29 +151,19 @@ function CastVotes(props) {
             <Grid item xs={12}>
                 <Grid container justify="center" spacing={24}>
                     {cards.map(card => (
-                        <Grid item key={card.value}>
-                            <ButtonBase
-                                focusRipple
-                                key={card.value}
-                                className={classes.image}
-                                focusVisibleClassName={classes.focusVisible}
-                                onClick={castVote.bind(this, props, card)}
-                            >
-                                <span className={classes.imageSrc} style={{ backgroundImage: `url(${card.url})`}} />
-                                <span className={classes.imageBackdrop} />
-                                <span className={classes.imageButton}>
-                                    <Typography
-                                        component="span"
-                                        variant="subheading"
-                                        color="inherit"
-                                        className={classes.imageTitle}
-                                    >
-                                        {card.value}
-                                        <span className={classes.imageMarked} />
-                                    </Typography>
-                                </span>
-                            </ButtonBase>
-                        </Grid>
+                        <div key={card.value}>
+                            {(props.voted_for === "" || card.value === props.voted_for) &&
+                                <Card
+                                    session_id={props.session_id}
+                                    voting_session_id={props.voting_session_id}
+                                    card={card}
+                                    classes={classes}
+                                    castVote={props.castVote}/>
+                            }
+                            {(props.voted_for !== "" && card.value !== props.voted_for) &&
+                                <ReadonlyCard classes={classes}/>
+                            }
+                        </div>
                     ))}
                 </Grid>
             </Grid>

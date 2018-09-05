@@ -5,7 +5,9 @@ const defaultState = {
     voters: [],
     voted: [],
     voting_open: false,
-    voting_finished: false
+    voting_finished: false,
+    voting_status: types.VOTING_IDLE,
+    voted_for: ""
 };
 
 const voting = (state = defaultState, action) => {
@@ -18,12 +20,23 @@ const voting = (state = defaultState, action) => {
                 voting_open: true,
                 voting_finished: false,
                 voters: action.voters,
-                voted: action.voted
+                voted: action.voted,
+                voting_status: types.VOTING_STARTED
             });
         case types.VOTING_SESSION_CANCELLED:
             return Object.assign({}, state, defaultState);
+
+        case types.CAST_VOTE: {
+            return Object.assign({}, state, {
+                voted_for: action.vote
+            });
+        }
+
         case types.VOTE_ACCEPTED:
-            return Object.assign({}, state, { voting_open: false });
+            return Object.assign({}, state, {
+                voting_open: false,
+                voting_status: types.VOTING_WAITING
+            });
         case types.VOTING_UPDATE: {
             var results = Object.assign({}, state, action);
             results.voters.forEach(voter => {
@@ -36,6 +49,7 @@ const voting = (state = defaultState, action) => {
         case types.VOTING_FINISHED:{
             var results = Object.assign({}, state, action);
             results.voting_finished = true;
+            results.voting_status = types.VOTING_FINISHED;
             results.voted.forEach(vote => {
                 var index = results.voters.findIndex(voter => voter.id === vote.id);
                 vote.name = results.voters[index].name;

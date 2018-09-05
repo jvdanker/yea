@@ -26,7 +26,7 @@ const styles = {
     }
 };
 
-function User(props) {
+const User = (props) => {
     console.log('User', props);
     const { classes } = props;
     const activeClass = props.active ? classes.purpleAvatar : classes.avatar;

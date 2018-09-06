@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import WaitingForVotesComponent from '../components/WaitingForVotes';
+import {cancelVotingSession} from "../actions";
 
 const mapStateToProps = state => ({
     session_id: state.user.session_id,
@@ -8,4 +9,10 @@ const mapStateToProps = state => ({
     voted: state.voting.voted
 });
 
-export const WaitingForVotes = connect(mapStateToProps, {})(WaitingForVotesComponent);
+const mapDispatchToProps = dispatch => ({
+    dispatchCancelVotingSession: (session_id) => {
+        dispatch(cancelVotingSession(session_id))
+    }
+});
+
+export const WaitingForVotes = connect(mapStateToProps, mapDispatchToProps)(WaitingForVotesComponent);

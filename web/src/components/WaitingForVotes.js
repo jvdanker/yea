@@ -43,6 +43,8 @@ import User from "./User";
 const styles = {
     card: {
         maxWidth: 345,
+        minWidth: 300,
+        margin: 30
     },
     media: {
         height: 140,
@@ -70,7 +72,11 @@ function MediaCard(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => props.dispatchCancelVotingSession(props.session_id)}
+                >
                     Cancel this voting session
                 </Button>
             </CardActions>
@@ -80,6 +86,7 @@ function MediaCard(props) {
 
 MediaCard.propTypes = {
     classes: PropTypes.object.isRequired,
+    dispatchCancelVotingSession: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(MediaCard);

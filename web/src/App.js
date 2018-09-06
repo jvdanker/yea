@@ -12,6 +12,7 @@ import * as types from './constants/ActionTypes';
 
 import './App.css';
 import Grid from "@material-ui/core/Grid/Grid";
+import {withStyles} from "@material-ui/core";
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -23,35 +24,41 @@ const mapStateToProps = state => ({
 
 const buttonStyles = {};
 
-const AppContainer = (props) => (
-    <div>
-        <ButtonAppBar classes={buttonStyles} />
-        <Grid
-            container
-            direction="row"
-        >
-            <Grid item style={{flex: 1}}>
-                {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
-                  <WaitingForVotes/>
-                }
-            </Grid>
-            <Grid item style={{flex: 1}}>
-                <Sidebar/>
-            </Grid>
-        </Grid>
+const AppContainer = (props) => {
+    console.log('AppContainer', props);
 
-        { props.username === "" && <Username/> }
-        { props.username !== "" &&
+    return (
+        <div>
+            <ButtonAppBar classes={buttonStyles} />
+
+            { props.username === "" && <Username/> }
+            { props.username !== "" && <Controls/> }
+
+            <Grid
+                container
+                direction="row"
+            >
+                <Grid item style={{flex: 1, flexGrow: 0}}>
+                    {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
+                    <WaitingForVotes />
+                    }
+                </Grid>
+                <Grid item style={{flex: 1}}>
+                    {(props.voting_status === types.VOTING_STARTED || props.voting_status === types.VOTING_WAITING) &&
+                        <CastVotes/>
+                    }
+                </Grid>
+                <Grid item style={{flex: 1, flexGrow: 0}}>
+                    <Sidebar/>
+                </Grid>
+            </Grid>
+
             <div>
-                <Controls/>
-                {(props.voting_status === types.VOTING_STARTED || props.voting_status === types.VOTING_WAITING) &&
-                    <CastVotes/>
-                }
                 {props.voting_status === types.VOTING_FINISHED && <VoteResults/>}
             </div>
-        }
-    </div>
-);
+        </div>
+    );
+};
 
 const App = connect(mapStateToProps, {})(AppContainer);
 

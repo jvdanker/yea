@@ -21,8 +21,8 @@ const styles = theme => ({
     },
     image: {
         position: 'relative',
-        height: 200,
-        width: 150,
+        height: 160,
+        width: 120,
         [theme.breakpoints.down('xs')]: {
             width: '100% !important', // Overrides inline-style
             height: 100,
@@ -158,9 +158,6 @@ function CastVotes(props) {
                                     card={card}
                                     classes={classes}
                                     castVote={props.castVote}/>
-                            }
-                            {(props.voted_for !== "" && card.value !== props.voted_for) &&
-                                <ReadonlyCard card={card} classes={classes}/>
                             }
                         </Grid>
                     ))}

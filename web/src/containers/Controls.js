@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import ControlsComponent from '../components/Controls';
-import {startVotingSession,cancelVotingSession} from '../actions';
+import {startVotingSession} from '../actions';
 
 const mapStateToProps = state => ({
     session_id: state.user.session_id,
@@ -13,9 +13,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     dispatchStartVotingSession: (session_id) => {
         dispatch(startVotingSession(session_id))
-    },
-    dispatchCancelVotingSession: (session_id) => {
-        dispatch(cancelVotingSession(session_id))
     }
 });
 

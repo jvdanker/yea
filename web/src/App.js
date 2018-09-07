@@ -31,13 +31,17 @@ const AppContainer = (props) => {
         <div>
             <ButtonAppBar classes={buttonStyles} />
 
-            { props.username === "" && <Username/> }
-            { props.username !== "" && <Controls/> }
-
             <Grid
                 container
                 direction="row"
             >
+                <Grid item style={{flex: 1, flexGrow: 0}}>
+                    { props.username === "" && <Username/> }
+                    { props.username !== "" && (props.voting_status === types.VOTING_IDLE || props.voting_status === types.VOTING_FINISHED) &&
+                    <Controls/>
+                    }
+                </Grid>
+
                 <Grid item style={{flex: 1, flexGrow: 0}}>
                     {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
                     <WaitingForVotes />

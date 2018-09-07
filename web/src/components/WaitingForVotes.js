@@ -1,34 +1,3 @@
-/*
-import React from 'react'
-import User from "./User";
-import {withStyles} from "@material-ui/core";
-
-const styles = {
-    row: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
-};
-
-const WaitingForVotes = (props) => {
-    console.log('WaitingForVotes', props);
-    const { voters, classes } = props;
-
-    return (
-        <div>
-            <div className={classes.row}>
-                {voters.map(voter => (
-                    <User key={voter.id} name={voter.name} active={voter.voted}/>
-                ))}
-            </div>
-        </div>
-    )
-};
-
-export default withStyles(styles)(WaitingForVotes);
-
-*/
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -49,6 +18,9 @@ const styles = {
     media: {
         height: 140,
     },
+    users: {
+        display: 'flex'
+    }
 };
 
 function MediaCard(props) {
@@ -62,9 +34,9 @@ function MediaCard(props) {
                         Voting has started!
                     </Typography>
                     <Typography component="p">
-                        Below are presented all currently attending users of who we are waiting for to cast their vote...
+                        Waiting for a vote from the following users...
                     </Typography>
-                    <Typography>
+                    <Typography className={classes.users}>
                         {voters.map(voter => (
                             <User key={voter.id} name={voter.name} active={voter.voted}/>
                         ))}

@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     dispatch: (session_id, author) => {
-        console.log("dispatch setUsername", author);
+        console.log("dispatch setUsername", session_id, author);
         dispatch(joinSession(session_id, author));
     }
 });

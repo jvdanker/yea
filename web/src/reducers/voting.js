@@ -21,7 +21,8 @@ const voting = (state = defaultState, action) => {
                 voting_finished: false,
                 voters: action.voters,
                 voted: action.voted,
-                voting_status: types.VOTING_STARTED
+                voting_status: types.VOTING_STARTED,
+                voted_for: ''
             });
         case types.VOTING_SESSION_CANCELLED:
             return Object.assign({}, state, defaultState);

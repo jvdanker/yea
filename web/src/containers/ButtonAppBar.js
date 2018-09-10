@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = {
     root: {
-        flexGrow: 1,
+        flexGrow: 0,
     },
     flex: {
         flexGrow: 1,
@@ -22,19 +22,18 @@ const styles = {
 
 function ButtonAppBar(props) {
     const { classes } = props;
+
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="title" color="inherit" className={classes.flex}>
-                        Yea
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
+        <AppBar position="static">
+            <Toolbar>
+                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="title" color="inherit" className={classes.flex}>
+                    Yea
+                </Typography>
+            </Toolbar>
+        </AppBar>
     );
 }
 

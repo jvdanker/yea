@@ -22,36 +22,69 @@ const mapStateToProps = state => ({
     voting_status: state.voting.voting_status
 });
 
-const buttonStyles = {};
+const buttonStyles = {
+};
+
+const styles = {
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+    },
+    content: {
+        display: 'flex',
+        flex: 1
+    },
+    controls: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex'
+    },
+    vote: {
+        flex: 1,
+        display: 'flex'
+    }
+};
 
 const AppContainer = (props) => {
     console.log('AppContainer', props);
 
+    const { classes } = props;
+
     return (
-        <div>
+        <div className={classes.root}>
             <ButtonAppBar classes={buttonStyles} />
 
             <Grid
                 container
                 direction="row"
+                className={classes.content}
             >
-                <Grid item style={{flex: 1, flexGrow: 0}}>
-                    { props.username === "" && <Username/> }
-                    { props.username !== "" && (props.voting_status === types.VOTING_IDLE || props.voting_status === types.VOTING_FINISHED) &&
-                    <Controls/>
-                    }
+                {props.username === "" &&
+                <Grid item className={classes.controls}>
+                    <Username/>
                 </Grid>
+                }
 
+                {props.username !== "" && (props.voting_status === types.VOTING_IDLE || props.voting_status === types.VOTING_FINISHED) &&
+                <Grid item className={classes.controls}>
+                    <Controls/>
+                </Grid>
+                }
+
+                {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
                 <Grid item style={{flex: 1, flexGrow: 0}}>
-                    {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
                     <WaitingForVotes />
-                    }
                 </Grid>
-                <Grid item style={{flex: 1}}>
-                    {(props.voting_status === types.VOTING_STARTED || props.voting_status === types.VOTING_WAITING) &&
-                        <CastVotes/>
-                    }
+                }
+
+                {(props.voting_status === types.VOTING_STARTED || props.voting_status === types.VOTING_WAITING) &&
+                <Grid item className={classes.vote}>
+                    <CastVotes/>
                 </Grid>
+                }
+
                 <Grid item style={{flex: 1, flexGrow: 0}}>
                     <Sidebar/>
                 </Grid>
@@ -64,6 +97,6 @@ const AppContainer = (props) => {
     );
 };
 
-const App = connect(mapStateToProps, {})(AppContainer);
+const App = withStyles(styles)(connect(mapStateToProps, {})(AppContainer));
 
 export default App;

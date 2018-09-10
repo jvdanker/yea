@@ -33,7 +33,7 @@ const setupSocket = (dispatch) => {
                 dispatch(votingUpdate(data));
                 break;
             case types.VOTING_FINISHED:
-                // dispatch(votingFinished(data));
+                dispatch(votingFinished(data));
                 break;
 
             case types.NEW_CONNECTION:

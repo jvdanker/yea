@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
     voting_session_id: state.voting.voting_session_id,
     voters: state.voting.voters,
     voted: state.voting.voted,
-    voted_for: state.voting.voted_for
+    voted_for: state.voting.voted_for,
+    voting_status: state.voting.voting_status
 });
 
 const mapDispatchToProps = dispatch => ({

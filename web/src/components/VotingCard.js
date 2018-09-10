@@ -87,7 +87,9 @@ const styles = theme => ({
 
 function castVote(props, card) {
     console.log('castVote', props, card);
-    props.castVote(props.session_id, props.voting_session_id, card.value);
+    if (props.votedFor === "") {
+        props.castVote(props.session_id, props.voting_session_id, card.value);
+    }
 }
 
 const VotingCard = (props) => {

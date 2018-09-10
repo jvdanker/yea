@@ -44,6 +44,18 @@ const styles = {
     vote: {
         flex: 1,
         display: 'flex'
+    },
+    waiting: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex'
+    },
+    results: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex'
     }
 };
 
@@ -53,7 +65,7 @@ const AppContainer = (props) => {
     const { classes } = props;
 
     return (
-        <div className={classes.root}>
+        <Grid className={classes.root}>
             <ButtonAppBar classes={buttonStyles} />
 
             <Grid
@@ -67,21 +79,27 @@ const AppContainer = (props) => {
                 </Grid>
                 }
 
-                {props.username !== "" && (props.voting_status === types.VOTING_IDLE || props.voting_status === types.VOTING_FINISHED) &&
+                {props.username !== "" && (props.voting_status === types.VOTING_IDLE) &&
                 <Grid item className={classes.controls}>
                     <Controls/>
                 </Grid>
                 }
 
-                {(props.voting_status !== types.VOTING_IDLE && props.voting_status !== types.VOTING_FINISHED) &&
-                <Grid item style={{flex: 1, flexGrow: 0}}>
+                {(props.voting_status === types.VOTING_STARTED) &&
+                <Grid item className={classes.vote}>
+                    <CastVotes/>
+                </Grid>
+                }
+
+                {(props.voting_status === types.VOTING_WAITING) &&
+                <Grid item className={classes.waiting}>
                     <WaitingForVotes />
                 </Grid>
                 }
 
-                {(props.voting_status === types.VOTING_STARTED || props.voting_status === types.VOTING_WAITING) &&
-                <Grid item className={classes.vote}>
-                    <CastVotes/>
+                {(props.voting_status === types.VOTING_FINISHED) &&
+                <Grid item className={classes.results}>
+                    <VoteResults/>
                 </Grid>
                 }
 
@@ -89,11 +107,7 @@ const AppContainer = (props) => {
                     <Sidebar/>
                 </Grid>
             </Grid>
-
-            <div>
-                {props.voting_status === types.VOTING_FINISHED && <VoteResults/>}
-            </div>
-        </div>
+        </Grid>
     );
 };
 

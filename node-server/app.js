@@ -30,6 +30,12 @@ function heartbeat() {
     this.isAlive = true;
 }
 
+function finish(message) {
+    return function() {
+        broadcast(message);
+    };
+}
+
 wss.on('connection', (ws) => {
     ws.isAlive = true;
     ws.on('pong', heartbeat);
@@ -102,12 +108,11 @@ wss.on('connection', (ws) => {
                 broadcast(message);
 
                 if (votingSession.voted.length === votingSession.voters.length) {
-
                     const message = {
                         type: 'VOTING_FINISHED',
                         ...votingSession
                     };
-                    broadcast(message);
+                    setTimeout(finish(message), 5000);
 
                     votingSession = {};
                 }
